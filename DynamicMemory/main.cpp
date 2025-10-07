@@ -92,12 +92,16 @@ void main()
 	Print(arr, rows, cols);
 	arr = insert_row(arr, rows, cols, 2); // Вставляем строку на позицию 2
 	Print(arr, rows, cols);
+	arr = erase_row(arr, rows, cols, 2);
+	Print(arr, rows, cols);
 
 	pop_col_back(arr, rows, cols);
 	Print(arr, rows, cols);
 	arr = pop_row_back(arr, rows, cols);
 	Print(arr, rows, cols);
 	arr = pop_row_front(arr, rows, cols);
+	Print(arr, rows, cols);
+	pop_col_front(arr, rows, cols);
 	Print(arr, rows, cols);
 
 	Clear(arr, rows);
@@ -356,20 +360,13 @@ int* erase(int arr[], int& n, int index)
 int** erase_row(int** arr, int& rows, const int cols, int index)
 {
 	if (index < 0 || index >= rows) return arr; // Проверка на корректность индекса
-
 	int** buffer = new int* [rows - 1]; // Создаём новый массив строк с уменьшенным количеством строк
-
 	for (int i = 0; i < index; i++)
 		buffer[i] = arr[i]; // Копируем строки до индекса
-
 	for (int i = index + 1; i < rows; i++)
 		buffer[i - 1] = arr[i]; // Копируем строки после индекса
-
 	delete[] arr[index]; // Удаляем строку, которую нужно удалить
-
 	delete[] arr; // Удаляем старый массив строк
-
 	rows--; // Уменьшаем количество строк
-
 	return buffer; // Возвращаем новый массив
 }
